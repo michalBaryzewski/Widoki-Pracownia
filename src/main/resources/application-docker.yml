@@ -1,0 +1,14 @@
+spring:
+  jpa:
+  flyway:
+    enabled: true #todo ??> difference from baseline-on-migrate: true
+  datasource:
+    url: 'jdbc:mysql://localhost:3306/bootdb?createDatabaseIfNotExist=true'
+    username: 'root'
+    password: 'root'
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL=debug:

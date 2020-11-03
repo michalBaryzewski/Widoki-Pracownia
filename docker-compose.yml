@@ -1,0 +1,31 @@
+version: "3"
+services:
+  widoki-manager:
+    image: widoki-manager
+    ports:
+      - "8090:8080"
+    networks:
+      - widoki-port-manager
+    environment:
+      #      - "SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/bootdb?autoReconnect=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=GMT"
+      - "SPRING_PROFILES_ACTIVE=docker"
+    depends_on:
+      - mysql
+
+  mysql:
+    container_name: "mysql"
+    image: mysql:latest
+    networks:
+      - widoki-port-manager
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_DATABASE=bootdb
+        - MYSQL_USER=root
+        - MYSQL_PASSWORD=root
+    ports:
+      - "3306:3306"
+    volumes:
+      - /opt/mysql_data:/var/lib/mysql
+
+networks:
+  widoki-port-manager:
