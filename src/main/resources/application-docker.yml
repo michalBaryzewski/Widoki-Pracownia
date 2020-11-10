@@ -1,9 +1,9 @@
 spring:
   jpa:
   flyway:
-    enabled: true #todo ??> difference from baseline-on-migrate: true
+    enabled: true
   datasource:
-    url: 'jdbc:mysql://localhost:3306/bootdb?createDatabaseIfNotExist=true'
+    url: 'jdbc:mysql://mysql:3306/widokidb'
     username: 'root'
     password: 'root'
 
