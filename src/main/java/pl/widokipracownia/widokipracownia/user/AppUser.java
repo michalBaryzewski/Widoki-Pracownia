@@ -1,11 +1,13 @@
-package pl.widokipracownia.widokipracownia.entity;
+package pl.widokipracownia.widokipracownia.user;
 
+import lombok.Data;
 
-public class User {
+@Data
+public class AppUser {
     private String email;
     private String password;
     private String role;
     private Integer projectId;
     private String firstName;
-    private String secondName;
+    private String lastName;
 }
