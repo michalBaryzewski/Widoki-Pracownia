@@ -22,22 +22,25 @@ repositories {
 
 
 dependencies {
+    implementation  group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    implementation  group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    implementation group: 'org.mapstruct', name: 'mapstruct', version: '1.4.1.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.1.Final'
     annotationProcessor group: 'org.springframework.boot', name: 'spring-boot-configuration-processor'
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.3.4.RELEASE'
-    compile group: 'org.mapstruct', name: 'mapstruct', version: '1.4.1.Final'
 
     compileOnly 'org.projectlombok:lombok:1.18.8'
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.3.1.RELEASE'
     implementation group: 'org.springframework.security', name: 'spring-security-core', version: '5.4.1'
+    compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.4.1'
     runtimeOnly group: 'mysql', name: 'mysql-connector-java', version: '8.0.21'
 	implementation  group: 'org.flywaydb', name: 'flyway-core', version: '6.5.1'
     testCompile group: 'com.h2database', name: 'h2', version: '1.4.200'
-    implementation  group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.2'
-
-    implementation platform(group: 'org.testcontainers', name:'testcontainers-bom', version: '1.14.3')
-    testImplementation(group: 'org.testcontainers', name:'mysql', version: '1.14.3')
+    compile group: 'org.springframework.security', name: 'spring-security-config', version: '5.4.1'
+//    implementation platform(group: 'org.testcontainers', name:'testcontainers-bom', version: '1.14.3')
+//    testImplementation(group: 'org.testcontainers', name:'mysql', version: '1.14.3')
     testCompile group: 'org.codehaus.groovy', name: 'groovy', version: '3.0.4'
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
@@ -56,8 +59,8 @@ flyway {
     url = 'jdbc:mysql://localhost:3306/widokidb'
     user = 'root'
     password = 'root'
-    locations = ['classpath:db/migration']
-    schemas = ['widokidb']
+//    locations = ['classpath:db/migration']
+    baselineOnMigrate=true
 }
 
 test {

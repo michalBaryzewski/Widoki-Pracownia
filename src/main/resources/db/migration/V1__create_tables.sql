@@ -1,4 +1,10 @@
-create table plants (
+CREATE TABLE IF NOT EXISTS authority (
+    id INT AUTO_INCREMENT,
+    name VARCHAR(100),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS plants (
     id INT NOT NULL AUTO_INCREMENT,
     latin_name VARCHAR(100),
     polish_name VARCHAR(100),

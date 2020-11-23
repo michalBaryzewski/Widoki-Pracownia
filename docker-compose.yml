@@ -1,29 +1,36 @@
 version: "3"
 services:
+  mysql:
+    container_name: "mysql"
+    image: mysql
+    networks:
+      - widoki-port-manager
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=root
+      - MYSQL_DATABASE=widokidb
+    ports:
+      - "3306:3306"
+    volumes:
+      - my-datavolume:/var/lib/mysql
+
+
   widoki_manager:
     image: widoki_manager
     ports:
       - "8090:8080"
     networks:
-      - widoki-api-port-manager
+      - widoki-port-manager
     environment:
       - "SPRING_PROFILES_ACTIVE=docker"
     depends_on:
       - mysql
-
-  mysql:
-    container_name: "mysql"
-    image: mysql
-    networks:
-      - widoki-api-port-manager
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_USER=root
-      - MYSQL_DATABASE=widokidb?createDatabaseIfNotExist=true
-    ports:
-      - "3306:3306"
-    volumes:
-      - /opt/mysql_data:/var/lib/mysql
+    links:
+      - mysql
 
 networks:
-  widoki-api-port-manager:
+  widoki-port-manager:
+    driver: bridge
+
+volumes:
+  my-datavolume:

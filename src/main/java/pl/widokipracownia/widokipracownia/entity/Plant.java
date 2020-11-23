@@ -11,7 +11,7 @@ public class Plant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String latinName;
     private String polishName;
     private String variety;
