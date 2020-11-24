@@ -1,6 +1,8 @@
 package pl.widokipracownia.widokipracownia.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pl.widokipracownia.widokipracownia.entity.Project;
 
 import javax.persistence.*;
@@ -11,6 +13,8 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name="user")
+@AllArgsConstructor
+@NoArgsConstructor
 public class AppUser {
 
     @Id

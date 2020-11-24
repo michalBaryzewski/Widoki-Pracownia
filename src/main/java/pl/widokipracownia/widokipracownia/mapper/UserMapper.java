@@ -9,5 +9,6 @@ import pl.widokipracownia.widokipracownia.web.dto.AppUserDto;
 public interface UserMapper {
 
     AppUserDto userEntityToDto(AppUser appUser);
+
     AppUser dtoToUserEntity(AppUserDto appUserDto);
 }
