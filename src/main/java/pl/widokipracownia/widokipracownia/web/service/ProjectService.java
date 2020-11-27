@@ -1,7 +1,6 @@
 package pl.widokipracownia.widokipracownia.web.service;
 
 import org.springframework.stereotype.Service;
-import pl.widokipracownia.widokipracownia.entity.Plant;
 import pl.widokipracownia.widokipracownia.entity.Project;
 
 import java.util.List;
