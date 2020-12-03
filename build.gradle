@@ -13,6 +13,7 @@ ext {
     spockVersion = '2.0-M2-groovy-3.0'
     springSecurityVersion = '5.4.1'
     lombokVersion = '1.18.8'
+    testContainersVersion = '1.15.0'
 }
 
 group = 'pl.widokipracownia'
@@ -51,6 +52,8 @@ dependencies {
     testAnnotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: mapstructVersion
     testImplementation group: 'org.spockframework', name: 'spock-core', version: spockVersion
     testImplementation group: 'org.spockframework', name: 'spock-spring', version: spockVersion
+    testCompile group: 'org.testcontainers', name: 'mysql', version: testContainersVersion
+    testImplementation(group: 'org.testcontainers', name:'mysql', version: testContainersVersion)
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }

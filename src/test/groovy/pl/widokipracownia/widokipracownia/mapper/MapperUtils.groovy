@@ -9,4 +9,10 @@ trait MapperUtils {
         assert appUser.username == dto.username
     }
 
+    void compareProjectEntityToDto(project, dto) {
+        assert project.address == dto.address
+        assert project.voivodeship == dto.voivodeship
+        assert project.projectArea == dto.projectArea
+    }
+
 }

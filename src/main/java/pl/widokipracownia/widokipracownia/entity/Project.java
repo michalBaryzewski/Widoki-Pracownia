@@ -1,5 +1,6 @@
 package pl.widokipracownia.widokipracownia.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @Table(name = "project")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Project {
 
     @Id
