@@ -6,13 +6,12 @@ import pl.widokipracownia.widokipracownia.entity.Project;
 import pl.widokipracownia.widokipracownia.web.dto.ProjectDto;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public interface ProjectService {
 
     Project save(ProjectDto projectDto, MultipartFile file);
-    Optional<Project> findById(Integer id);
+    Project findById(Integer id);
     List<Project> findAll();
     void delete(Project project);
 }

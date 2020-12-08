@@ -4,15 +4,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.widokipracownia.widokipracownia.mapper.UserMapper;
 import pl.widokipracownia.widokipracownia.repository.AuthoritiesRepository;
 import pl.widokipracownia.widokipracownia.repository.UserRepository;
 import pl.widokipracownia.widokipracownia.user.AppUser;
 import pl.widokipracownia.widokipracownia.user.Authority;
 import pl.widokipracownia.widokipracownia.user.AuthorityType;
+import pl.widokipracownia.widokipracownia.web.dto.AppUserDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @RequiredArgsConstructor
@@ -22,11 +23,24 @@ public class UserManager{
 
     private final UserRepository userRepository;
     private final AuthoritiesRepository authoritiesRepository;
+    private final UserMapper userMapper;
 
     private final PasswordEncoder passwordEncoder;
 
-    public Optional<AppUser> findById(Integer id) {
-        return userRepository.findById(id);
+    public AppUser findById(Integer id) {
+        if (userRepository.findById(id).isPresent()) {
+            return userRepository.findById(id).get();
+        } else {
+            throw new RuntimeException("NotFound!");
+        }
+    }
+
+    public AppUser createUser(AppUserDto appUserDto, String password, String authority) {
+        AppUser user = userMapper.dtoToUserEntity(appUserDto);
+        user.setPassword(password);
+        user.setCreated(LocalDateTime.now());
+        setAuthority(authority, user);
+        return save(user);
     }
 
     public AppUser save(AppUser appUser) {

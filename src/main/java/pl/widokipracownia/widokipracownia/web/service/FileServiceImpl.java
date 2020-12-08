@@ -3,13 +3,10 @@ package pl.widokipracownia.widokipracownia.web.service;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import pl.widokipracownia.widokipracownia.entity.File;
 import pl.widokipracownia.widokipracownia.repository.FileRepository;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
@@ -26,8 +23,14 @@ public class FileServiceImpl implements FileService {
     }
 
 
-    public File save(MultipartFile multipartFile) throws IOException {
-        File file = new File(multipartFile.getOriginalFilename(), multipartFile.getContentType(), multipartFile.getBytes());
+    public File save(MultipartFile multipartFile) {
+        byte[] data = null;
+        try {
+            data = multipartFile.getBytes();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        File file = new File(multipartFile.getOriginalFilename(), multipartFile.getContentType(), data);
         return fileRepository.save(file);
     }
 
