@@ -6,20 +6,16 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import pl.widokipracownia.widokipracownia.entity.File;
-import pl.widokipracownia.widokipracownia.entity.Plant;
 import pl.widokipracownia.widokipracownia.entity.Project;
+import pl.widokipracownia.widokipracownia.mapper.FileMapper;
 import pl.widokipracownia.widokipracownia.mapper.ProjectMapper;
 import pl.widokipracownia.widokipracownia.mapper.UserMapper;
+import pl.widokipracownia.widokipracownia.repository.FileRepository;
 import pl.widokipracownia.widokipracownia.user.AppUser;
-import pl.widokipracownia.widokipracownia.user.Authority;
 import pl.widokipracownia.widokipracownia.user.service.UserManager;
 import pl.widokipracownia.widokipracownia.web.dto.AppUserDto;
 import pl.widokipracownia.widokipracownia.web.dto.ProjectDto;
@@ -27,12 +23,10 @@ import pl.widokipracownia.widokipracownia.web.service.FileService;
 import pl.widokipracownia.widokipracownia.web.service.PlantService;
 import pl.widokipracownia.widokipracownia.web.service.ProjectService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/admin")
@@ -41,14 +35,13 @@ import java.util.Set;
 @Api(value = "admin")
 public class AdminController {
 
-    private final PlantService plantService;
     private final ProjectService projectService;
     private final FileService fileService;
-
     private final UserManager userManager;
 
     private final UserMapper userMapper;
     private final ProjectMapper projectMapper;
+    private final FileMapper fileMapper;
 
     @ApiOperation(value = "View a list of users", response = AppUserDto.class, responseContainer = "List")
     @ApiResponses(value = {
@@ -121,16 +114,12 @@ public class AdminController {
         return projectMapper.projectEntityToDto(project);
     }
 
-    @PostMapping("/project")
-    public ProjectDto createProject(@RequestBody ProjectDto projectDto, @RequestParam MultipartFile file) throws IOException {
-        File upload = fileService.save(file);
-        //todo create project with file in db
-        Project project = projectMapper.dtoToProjectEntity(projectDto);
-        project.setFile(upload);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-        projectService.save(project);
-        return projectDto;
+    @PostMapping(value = "/project")
+    public HttpStatus createProject(@RequestPart("file") MultipartFile file, @RequestParam String address, @RequestParam String voivodeship, @RequestParam Double projectArea){
+        //todo send whole PROJECTDTO, not only parts of this object
+        ProjectDto projectDto = new ProjectDto(address, voivodeship, projectArea, fileMapper.multipartToFile(file));
+        projectService.save(projectDto, file);
+        return HttpStatus.OK;
     }
 
 }

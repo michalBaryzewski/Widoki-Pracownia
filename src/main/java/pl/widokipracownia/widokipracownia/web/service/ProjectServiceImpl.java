@@ -7,8 +7,11 @@ import org.springframework.web.multipart.MultipartFile;
 import pl.widokipracownia.widokipracownia.entity.File;
 import pl.widokipracownia.widokipracownia.entity.Plant;
 import pl.widokipracownia.widokipracownia.entity.Project;
+import pl.widokipracownia.widokipracownia.mapper.ProjectMapper;
 import pl.widokipracownia.widokipracownia.repository.ProjectRepository;
+import pl.widokipracownia.widokipracownia.web.dto.ProjectDto;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,9 +21,17 @@ import java.util.Optional;
 public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepository projectRepository;
+    private final FileService fileService;
+    private final ProjectMapper projectMapper;
 
     @Override
-    public Project save(Project project) {
+    public Project save(ProjectDto projectDto, MultipartFile file) {
+        try {
+            fileService.save(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Project project = projectMapper.dtoToProjectEntity(projectDto);
         projectRepository.save(project);
         log.info("Created plant: " + project.toString());
         return project;

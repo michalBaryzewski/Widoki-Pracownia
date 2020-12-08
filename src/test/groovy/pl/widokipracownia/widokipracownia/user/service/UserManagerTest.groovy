@@ -34,12 +34,12 @@ class UserManagerTest extends Specification {
         given:
        AppUser user = userRepository.save(new AppUser(1, "email", "username", "password", null, "firstName", "lastName", null, LocalDateTime.now()))
         when:
-//        manager.setAuthority(adminRoleString, user)
-        AppUser user1 = userRepository.findByUsername("username")
+        manager.setAuthority(adminRoleString, user)
+//        AppUser user1 = userRepository.findByUsername("username")
         then:
-//        print(user.getAuthorities())
-//        assert user.getAuthorities().contains(AuthorityType.ROLE_ADMIN)
-        user1.getUsername() == user.getUsername()
+        def auth = user.getAuthorities()
+        print(auth)
+//        user1.getUsername() == user.getUsername()
 
     }
 }
