@@ -12,9 +12,10 @@ import pl.widokipracownia.widokipracownia.mapper.FileMapper;
 import pl.widokipracownia.widokipracownia.mapper.ProjectMapper;
 import pl.widokipracownia.widokipracownia.mapper.UserMapper;
 import pl.widokipracownia.widokipracownia.user.service.UserManager;
-import pl.widokipracownia.widokipracownia.web.dto.AppUserDto;
-import pl.widokipracownia.widokipracownia.web.dto.FileWrapper;
-import pl.widokipracownia.widokipracownia.web.dto.ProjectDto;
+import pl.widokipracownia.widokipracownia.web.model.AppUserDto;
+import pl.widokipracownia.widokipracownia.web.model.FileWrapper;
+import pl.widokipracownia.widokipracownia.web.model.ProjectDto;
+import pl.widokipracownia.widokipracownia.web.service.ActionService;
 import pl.widokipracownia.widokipracownia.web.service.ProjectService;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class AdminController {
 
     private final ProjectService projectService;
     private final UserManager userManager;
+    private final ActionService actionService;
 
     private final UserMapper userMapper;
     private final ProjectMapper projectMapper;
@@ -42,7 +44,7 @@ public class AdminController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")})
     @GetMapping("/user")
     public List<AppUserDto> getAllUsers() {
-        return userMapper.entityListToDtoList(userManager.findAll());
+        return actionService.runActionAndHandleException(() -> userMapper.entityListToDtoList(userManager.findAll()));
     }
 
     @ApiOperation(value = "Endpoint allowing to find a user by id")
@@ -54,7 +56,7 @@ public class AdminController {
             @ApiResponse(code = 404, message = "Not found")})
     @GetMapping("/user/{id}")
     public AppUserDto findUserById(@PathVariable Integer id) {
-        return userMapper.userEntityToDto(userManager.findById(id));
+        return actionService.runActionAndHandleException(() -> userMapper.userEntityToDto(userManager.findById(id)));
     }
 
     @ApiOperation(value = "Endpoint allowing to create a new user")
@@ -66,7 +68,8 @@ public class AdminController {
             @ApiResponse(code = 404, message = "Not found")})
     @PostMapping("/user")
     public AppUserDto createUser(@RequestBody AppUserDto userDto, @RequestParam String password, @RequestParam String authority) {
-        return userMapper.userEntityToDto(userManager.createUser(userDto, password, authority));
+        return actionService.runActionAndHandleException(
+                () -> userMapper.userEntityToDto(userManager.createUser(userDto, password, authority)));
     }
 
     @ApiOperation(value = "View a list of projects", response = ProjectDto.class, responseContainer = "List")
@@ -78,7 +81,8 @@ public class AdminController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")})
     @GetMapping("/project")
     public List <ProjectDto> getAllProjects() {
-        return projectMapper.entityListToDtoList(projectService.findAll());
+        return actionService.runActionAndHandleException(
+                () -> projectMapper.entityListToDtoList(projectService.findAll()));
     }
 
     @ApiOperation(value = "Endpoint allowing to find a project by id")
@@ -90,7 +94,8 @@ public class AdminController {
             @ApiResponse(code = 404, message = "Not found")})
     @GetMapping("/project/{id}")
     public ProjectDto getProjectById(@PathVariable Integer id) {
-        return projectMapper.projectEntityToDto(projectService.findById(id));
+        return actionService.runActionAndHandleException(
+                () -> projectMapper.projectEntityToDto(projectService.findById(id)));
     }
 
     @ApiOperation(value = "Endpoint allowing to create a project")
@@ -104,8 +109,8 @@ public class AdminController {
     public ProjectDto createProject(@RequestPart("file") MultipartFile file, @RequestParam String address, @RequestParam String voivodeship, @RequestParam Double projectArea){
         FileWrapper wrapper = FileWrapper.wrapper(file);
         ProjectDto projectDto = new ProjectDto(address, voivodeship, projectArea, fileMapper.wrapperToEntity(wrapper));
-        projectService.save(projectDto, file);
-        return projectDto;
+        return actionService.runActionAndHandleException(
+                () -> projectMapper.projectEntityToDto(projectService.save(projectDto, file)));
     }
 
 }

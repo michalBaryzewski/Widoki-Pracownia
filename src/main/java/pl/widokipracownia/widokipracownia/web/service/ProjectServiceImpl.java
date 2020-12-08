@@ -7,10 +7,9 @@ import org.springframework.web.multipart.MultipartFile;
 import pl.widokipracownia.widokipracownia.entity.Project;
 import pl.widokipracownia.widokipracownia.mapper.ProjectMapper;
 import pl.widokipracownia.widokipracownia.repository.ProjectRepository;
-import pl.widokipracownia.widokipracownia.web.dto.ProjectDto;
+import pl.widokipracownia.widokipracownia.web.model.ProjectDto;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

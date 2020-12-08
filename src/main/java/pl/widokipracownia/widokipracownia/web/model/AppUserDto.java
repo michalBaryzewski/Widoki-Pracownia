@@ -1,4 +1,4 @@
-package pl.widokipracownia.widokipracownia.web.dto;
+package pl.widokipracownia.widokipracownia.web.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

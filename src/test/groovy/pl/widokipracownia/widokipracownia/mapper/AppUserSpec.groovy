@@ -2,7 +2,7 @@ package pl.widokipracownia.widokipracownia.mapper
 
 import org.mapstruct.factory.Mappers
 import pl.widokipracownia.widokipracownia.user.AppUser
-import pl.widokipracownia.widokipracownia.web.dto.AppUserDto
+import pl.widokipracownia.widokipracownia.web.model.AppUserDto
 import spock.lang.Shared
 import spock.lang.Specification
 

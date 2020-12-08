@@ -10,7 +10,7 @@ import pl.widokipracownia.widokipracownia.repository.UserRepository;
 import pl.widokipracownia.widokipracownia.user.AppUser;
 import pl.widokipracownia.widokipracownia.user.Authority;
 import pl.widokipracownia.widokipracownia.user.AuthorityType;
-import pl.widokipracownia.widokipracownia.web.dto.AppUserDto;
+import pl.widokipracownia.widokipracownia.web.model.AppUserDto;
 
 import java.time.LocalDateTime;
 import java.util.List;

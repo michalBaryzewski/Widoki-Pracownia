@@ -3,7 +3,7 @@ package pl.widokipracownia.widokipracownia.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import pl.widokipracownia.widokipracownia.entity.Project;
-import pl.widokipracownia.widokipracownia.web.dto.ProjectDto;
+import pl.widokipracownia.widokipracownia.web.model.ProjectDto;
 
 import java.util.List;
 
