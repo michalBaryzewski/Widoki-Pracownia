@@ -11,7 +11,8 @@ public class ActionService {
 
     private static RuntimeException translateException(RuntimeException e) {
         // switch for more exceptions
-        switch (e.getMessage()) {
+        switch (e.getCause().getMessage()) {
+            //todo handle exceptions when app has more actions
             case "NotFound!":
                 return new NotFoundException();
             default:

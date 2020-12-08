@@ -33,4 +33,5 @@ public class AppUser {
             inverseJoinColumns = @JoinColumn(name = "authority_id"))
     private Set<Authority> authorities = new HashSet<>();
     private LocalDateTime created;
+
 }

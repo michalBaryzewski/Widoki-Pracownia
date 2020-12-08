@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.widokipracownia.widokipracownia.entity.Plant;
+import pl.widokipracownia.widokipracownia.exception.NotFoundException;
 import pl.widokipracownia.widokipracownia.repository.PlantRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,9 +23,14 @@ public class PlantServiceImpl implements PlantService {
     }
 
     @Override
-    public Optional<Plant> findById(Integer id) {
+    public Plant findById(Integer id) {
         log.info("Found the plant with id: " + id);
-        return plantRepository.findById(id);
+        if (plantRepository.findById(id).isPresent()) {
+            return plantRepository.findById(id).get();
+        } else {
+            throw new NotFoundException();
+        }
+
     }
 
     @Override

@@ -29,11 +29,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Project findById(Integer id) {
-        if (projectRepository.findById(id).isPresent()) {
-            return projectRepository.findById(id).get();
-        } else {
-            throw new RuntimeException("Not found!");
-        }
+        return projectRepository.findById(id).get();
     }
 
     @Override
