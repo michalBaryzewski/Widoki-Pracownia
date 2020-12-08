@@ -100,7 +100,6 @@ public class AdminController {
             @ApiResponse(code = 401, message = "No authorization"),
             @ApiResponse(code = 403, message = "No permission to access here"),
             @ApiResponse(code = 404, message = "Not found")})
-    @GetMapping("/project/{id}")
     @PostMapping(value = "/project")
     public ProjectDto createProject(@RequestPart("file") MultipartFile file, @RequestParam String address, @RequestParam String voivodeship, @RequestParam Double projectArea){
         FileWrapper wrapper = FileWrapper.wrapper(file);
