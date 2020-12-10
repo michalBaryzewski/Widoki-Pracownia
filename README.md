@@ -2,7 +2,13 @@
 * [General info](#general-info)
 * [Technologies](#technologies)
 ## General info
-This project helps client to take care about their garden designed by "Widoki Pracownia".
+####PROJECT IN PROGRESS
+This app helps client to take care of their garden designed by "Widoki Pracownia".
+App gives details about plants included in client's project tells how to water or cut flowers.
+
+App bases on list of plants uploaded with project by admin.
+User has access to the project with all details.
+
 	
 ## Technologies
 Project created with:
