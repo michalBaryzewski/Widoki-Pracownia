@@ -2,7 +2,7 @@
 * [General info](#general-info)
 * [Technologies](#technologies)
 ## General info
-####PROJECT IN PROGRESS
+###PROJECT IN PROGRESS
 This app helps client to take care of their garden designed by "Widoki Pracownia".
 App gives details about plants included in client's project tells how to water or cut flowers.
 
