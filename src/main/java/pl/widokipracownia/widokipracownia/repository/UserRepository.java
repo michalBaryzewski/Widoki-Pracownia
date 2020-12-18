@@ -6,6 +6,5 @@ import pl.widokipracownia.widokipracownia.user.AppUser;
 
 @Repository
 public interface UserRepository extends JpaRepository<AppUser, Integer> {
-
     AppUser findByUsername(String username);
 }

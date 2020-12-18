@@ -25,12 +25,7 @@ public class PlantServiceImpl implements PlantService {
     @Override
     public Plant findById(Integer id) {
         log.info("Found the plant with id: " + id);
-        if (plantRepository.findById(id).isPresent()) {
-            return plantRepository.findById(id).get();
-        } else {
-            throw new NotFoundException();
-        }
-
+        return plantRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
     @Override

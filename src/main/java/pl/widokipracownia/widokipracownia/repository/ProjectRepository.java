@@ -6,5 +6,4 @@ import pl.widokipracownia.widokipracownia.entity.Project;
 
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Integer> {
-
 }

@@ -53,6 +53,7 @@ dependencies {
     testImplementation group: 'org.spockframework', name: 'spock-core', version: spockVersion
     testImplementation group: 'org.spockframework', name: 'spock-spring', version: spockVersion
     testCompile group: 'org.testcontainers', name: 'mysql', version: testContainersVersion
+
     testImplementation(group: 'org.testcontainers', name:'mysql', version: testContainersVersion)
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

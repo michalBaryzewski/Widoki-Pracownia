@@ -6,7 +6,4 @@ import pl.widokipracownia.widokipracownia.user.Authority;
 
 @Repository
 public interface AuthoritiesRepository extends JpaRepository<Authority, Long> {
-
-    Authority findByName(String name);
-    Authority findById(Integer id);
 }

@@ -6,5 +6,4 @@ import pl.widokipracownia.widokipracownia.entity.File;
 
 @Repository
 public interface FileRepository extends JpaRepository<File, Integer> {
-
 }

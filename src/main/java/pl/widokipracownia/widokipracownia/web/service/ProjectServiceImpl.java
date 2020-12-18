@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import pl.widokipracownia.widokipracownia.entity.Project;
+import pl.widokipracownia.widokipracownia.exception.NotFoundException;
 import pl.widokipracownia.widokipracownia.mapper.ProjectMapper;
 import pl.widokipracownia.widokipracownia.repository.ProjectRepository;
 import pl.widokipracownia.widokipracownia.web.model.ProjectDto;
@@ -29,7 +30,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Project findById(Integer id) {
-        return projectRepository.findById(id).get();
+        return projectRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
     @Override

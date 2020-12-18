@@ -27,11 +27,7 @@ public class UserManagerImpl implements UserManager{
     private final PasswordEncoder passwordEncoder;
 
     public AppUser findById(Integer id) {
-        if (userRepository.findById(id).isPresent()) {
-            return userRepository.findById(id).get();
-        } else {
-            throw new NotFoundException();
-        }
+        return userRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
     public AppUser findByUsername(String username) {
